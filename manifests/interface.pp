@@ -39,7 +39,14 @@ define network::interface (
         {
           concat::fragment { 'confd_net':
             target => '/etc/conf.d/net',
-            content => "config_$name=\"dhcp\"\n",
+            content => "config_$name=\"dhcp\"\n\n",
+          }
+        }
+        'dhcp-nodns':
+        {
+          concat::fragment { 'confd_net':
+            target => '/etc/conf.d/net',
+            content => template('network/dhcp_nodns.erb'),
           }
         }
         default:

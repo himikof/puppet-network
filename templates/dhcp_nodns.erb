@@ -1,0 +1,11 @@
+config_<%= name -%>="dhcp"
+dhcp_<%= name -%>="nodns"
+<% if dns_servers -%>
+dns_servers_<%= name -%>="<%= dns_servers.join(' ') -%>"
+<% end %>
+<% if dns_search_domains -%>
+dns_search_<%= name -%>="<%= dns_search_domains.join(' ') -%>"
+<% end %>
+<% if dns_domain -%>
+dns_domain_<%= name -%>="<%= dns_domain -%>"
+<% end %>
