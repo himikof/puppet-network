@@ -20,12 +20,18 @@ define network::interface (
       baselayout::net_iface { $name:
       }
       
+      baselayout::runlevel_service { "net.${name}":
+        ensure => $enable ? {
+          true  => 'present',
+          false => 'absent',
+        }
+      }
+      
       service { "net.${name}":
         ensure => $ensure ? {
           'up'   => 'running',
           'down' => 'stopped',
         },
-        enable => $enable,
       }
       
       case $configuration {

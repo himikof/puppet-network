@@ -13,7 +13,7 @@ class network {
   case $operatingsystem {
     gentoo:
     {
-      package {['iproute2', 'dhcpcd']:
+      package {['iproute2', 'dhcpcd', 'ifplugd']:
         ensure   => 'present',
       }
       
