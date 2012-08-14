@@ -10,6 +10,10 @@ define network::interface (
   $enable = true,
   $ensure = 'up',
   $configuration = 'dhcp',
+  # dns parameters
+  $dns_servers = false,
+  $dns_search_domains = false,
+  $dns_domain = false,
 ) {
   
   # OS-specific part
