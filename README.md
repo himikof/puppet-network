@@ -30,10 +30,12 @@ The default is true.
 
 #### $configuration
 
-The interface configuration type. Valid value is `dhcp`.
+The interface configuration type. Valid values are `dhcp`, `dhcp-nodns`, `null`.
 
 The default is `dhcp`.
 
+#### Other parameters
+TODO: document
 
 # Licensing
 

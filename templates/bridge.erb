@@ -1,0 +1,3 @@
+bridge_<%= name -%>="<%= bridge_interfaces.join(' ') -%>"
+brctl_<%= name -%>="stp <%= if bridge_stp then 'on' else 'off' end -%>"
+rc_need_<%= name -%>="<%= bridge_interfaces.map {|n| "net." + n}.join(' ') -%>"

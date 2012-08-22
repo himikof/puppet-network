@@ -10,10 +10,13 @@ define network::interface (
   $enable = true,
   $ensure = 'up',
   $configuration = 'dhcp',
+  $bridge_interfaces = false,
   # dns parameters
   $dns_servers = false,
   $dns_search_domains = false,
   $dns_domain = false,
+  # bridge parameters
+  $bridge_stp = true,
 ) {
   
   # OS-specific part
@@ -38,19 +41,33 @@ define network::interface (
         },
       }
       
+      if $bridge_interfaces {
+          concat::fragment { "confd_net_$name_bridge":
+            target => '/etc/conf.d/net',
+            content => template('network/bridge.erb'),
+          }
+      }
+
       case $configuration {
         'dhcp':
         {
-          concat::fragment { 'confd_net':
+          concat::fragment { "confd_net_$name":
             target => '/etc/conf.d/net',
             content => "config_$name=\"dhcp\"\n\n",
           }
         }
         'dhcp-nodns':
         {
-          concat::fragment { 'confd_net':
+          concat::fragment { "confd_net_$name":
             target => '/etc/conf.d/net',
             content => template('network/dhcp_nodns.erb'),
+          }
+        }
+        'null':
+        {
+          concat::fragment { "confd_net_$name":
+            target => '/etc/conf.d/net',
+            content => "config_$name=\"null\"\n\n",
           }
         }
         default:
