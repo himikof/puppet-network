@@ -40,12 +40,15 @@ define network::interface (
           'up'   => 'running',
           'down' => 'stopped',
         },
-        require  => Baselayout::Net_iface[$name],
+        require  => [
+          Baselayout::Net_iface[$name],
+          Concat['/etc/conf.d/net'],
+        ],
       }
       
       if $bridge_interfaces {
           concat::fragment { "confd_net_${name}_${bridge}":
-            target => '/etc/conf.d/net',
+            target  => '/etc/conf.d/net',
             content => template('network/bridge.erb'),
           }
       }
@@ -54,21 +57,21 @@ define network::interface (
         'dhcp':
         {
           concat::fragment { "confd_net_${name}":
-            target => '/etc/conf.d/net',
+            target  => '/etc/conf.d/net',
             content => "config_$name=\"dhcp\"\n\n",
           }
         }
         'dhcp-nodns':
         {
           concat::fragment { "confd_net_${name}":
-            target => '/etc/conf.d/net',
+            target  => '/etc/conf.d/net',
             content => template('network/dhcp_nodns.erb'),
           }
         }
         'null':
         {
           concat::fragment { "confd_net_${name}":
-            target => '/etc/conf.d/net',
+            target  => '/etc/conf.d/net',
             content => "config_$name=\"null\"\n\n",
           }
         }
