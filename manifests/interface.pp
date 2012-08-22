@@ -31,7 +31,8 @@ define network::interface (
         ensure => $enable ? {
           true  => 'present',
           false => 'absent',
-        }
+        },
+        require  => Baselayout::Net_iface[$name],
       }
       
       service { "net.${name}":
@@ -39,6 +40,7 @@ define network::interface (
           'up'   => 'running',
           'down' => 'stopped',
         },
+        require  => Baselayout::Net_iface[$name],
       }
       
       if $bridge_interfaces {
