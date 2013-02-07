@@ -11,6 +11,11 @@ define network::interface (
   $ensure = 'up',
   $configuration = 'dhcp',
   $bridge_interfaces = false,
+  # static parameters
+  $ip = false,
+  $netmask = false,
+  $netmask_cidr = false,
+  $gateway = false,
   # dns parameters
   $dns_servers = false,
   $dns_search_domains = false,
