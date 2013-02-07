@@ -1,0 +1,18 @@
+config_<%= name -%>="<%
+if netmask_cidr 
+-%><%= ip -%>/<%= netmask_cidr -%><%
+else 
+-%><%= ip -%> netmask <%= netmask -%><%
+end -%>"
+<% if gateway -%>
+routes_<%= name -%>="default via <%= gateway -%>"
+<% end %>
+<% if dns_servers -%>
+dns_servers_<%= name -%>="<%= dns_servers.join(' ') -%>"
+<% end %>
+<% if dns_search_domains -%>
+dns_search_<%= name -%>="<%= dns_search_domains.join(' ') -%>"
+<% end %>
+<% if dns_domain -%>
+dns_domain_<%= name -%>="<%= dns_domain -%>"
+<% end %>

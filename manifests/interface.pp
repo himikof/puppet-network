@@ -68,6 +68,13 @@ define network::interface (
             content => template('network/dhcp_nodns.erb'),
           }
         }
+        'static':
+        {
+          concat::fragment { "confd_net_${name}":
+            target  => '/etc/conf.d/net',
+            content => template('network/static.erb'),
+          }
+        }
         'null':
         {
           concat::fragment { "confd_net_${name}":
